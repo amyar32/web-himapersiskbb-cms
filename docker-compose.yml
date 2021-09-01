@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  cms:
+    build: .
+    ports:
+      - 1337:1337
+    volumes:
+      - .:/himapersiskbb-cms
+      - himapersiskbb_node_modules:/himapersiskbb-cms/node_modules
+    depends_on:
+      - db
+    command: "sh -c 'yarn build && yarn start'"
+
+  db:
+    image: postgres:12-alpine
+    restart: always
+    volumes:
+      - himapersiskbb_db_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: "${DATABASE_USERNAME}"
+      POSTGRES_PASSWORD: "${DATABASE_PASSWORD}"
+      POSTGRES_DB: "${DATABASE_NAME}"
+
+volumes:
+  himapersiskbb_db_data:
+  himapersiskbb_node_modules:

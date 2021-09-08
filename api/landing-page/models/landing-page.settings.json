@@ -53,6 +53,9 @@
     },
     "subSecondSubtitle": {
       "type": "string"
+    },
+    "footerText": {
+      "type": "string"
     }
   }
 }
